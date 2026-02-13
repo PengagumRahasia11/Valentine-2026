@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            transition: background 1s ease;
+        }
+
+        .page {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .page1 {
+            display: flex;
+        }
+
+        .page2 {
+            display: none;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8, #ff6b9d, #e84393);
+            animation: backgroundShift 5s ease-in-out infinite alternate;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            animation: fadeInMessage 2s ease-in-out 2s forwards;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .typing-message {
+            font-size: 2em;
+            margin-bottom: 30px;
+            border-right: 2px solid #fff;
+            animation: blink-caret 1s step-end infinite;
+            word-wrap: break-word;
+            hyphens: auto;
+            text-shadow: 1px 1px 0px #fff, -1px -1px 0px #000, 2px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        .chocolate {
+            font-size: 4em;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInChocolate 1s ease-in-out 3s forwards, bounce 1s ease-in-out infinite 4s;
+        }
+
+        .funny-photos {
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInPhotos 1s ease-in-out 4s forwards;
+        }
+
+        .funny-photos img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            font-size: 2em;
+            animation: float 3s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        .floating-flowers {
+            position: absolute;
+            font-size: 2.5em;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9d;
+            transform: rotate(45deg);
+            animation: fall 5s linear infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b9d;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 10px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b9d;
+            animation: fallConfetti 4s linear infinite;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background: #ff6b9d;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #ff4d7a;
+        }
+
+        #musicButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            font-size: 1.5em;
+            background: rgba(255, 107, 157, 0.8);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            transition: background 0.3s;
+        }
+
+        #musicButton:hover {
+            background: rgba(255, 77, 122, 0.8);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .message, .typing-message {
+                font-size: 1.5em;
+            }
+            .chocolate {
+                font-size: 3em;
+            }
+            button {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+            .heart {
+                width: 15px;
+                height: 15px;
+            }
+            .heart::before, .heart::after {
+                width: 15px;
+                height: 15px;
+            }
+            .heart::before {
+                top: -7.5px;
+            }
+            .heart::after {
+                left: 7.5px;
+            }
+            .confetti {
+                width: 8px;
+                height: 8px;
+            }
+            .floating-hearts, .floating-flowers {
+                font-size: 1.8em;
+            }
+            .funny-photos img {
+                width: 150px;
+                height: 150px;
+            }
+            #musicButton {
+                top: 10px;
+                right: 10px;
+                font-size: 1.2em;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+            .message, .typing-message {
+                font-size: 1.2em;
+            }
+            .chocolate {
+                font-size: 2.5em;
+            }
+            button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+            }
+            .funny-photos img {
+                width: 120px;
+                height: 120px;
+            }
+            .floating-hearts, .floating-flowers {
+                font-size: 1.5em;
+            }
+            #musicButton {
+                top: 5px;
+                right: 5px;
+                font-size: 1em;
+                padding: 6px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInMessage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fall {
+            0% { top: -20px; opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #fff; }
+        }
+
+        @keyframes fadeInChocolate {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fallConfetti {
+            0% { top: -10px; opacity: 1; transform: rotate(0deg); }
+            100% { top: 100vh; opacity: 0; transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        @keyframes fadeInPhotos {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Music Button -->
+    <button id="musicButton" title="Toggle Music">🎵</button>
+
+    <!-- Page 1 -->
+    <div class="page page1" id="page1">
+        <h1>Happy Valentine's Day!</h1>
+        <div class="message">You are the love of my life, my everything. ❤️</div>
+        <button onclick="openMessage()">Open Message</button>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page page2" id="page2">
+        <div class="typing-message" id="typingMessage"></div>
+        <div class="chocolate" id="chocolate">🍫</div>
+        <div class="funny-photos">
+            <img id="photo" src="https://loremflickr.com/200/200/cat" alt="Funny Photo">
+        </div>
+        <!-- Floating hearts for fun animation -->
+        <div class="floating-hearts" style="top: 20%; left: 20%;">💖</div>
+        <div class="floating-hearts" style="top: 30%; right: 20%; animation-delay: 0.5s;">💕</div>
+        <div class="floating-hearts" style="bottom: 20%; left: 30%; animation-delay: 1s;">❤️</div>
+        <!-- Floating flowers for more merriness -->
+        <div class="floating-flowers" style="top: 10%; right: 30%; animation-delay: 1.5s;">🌸</div>
+        <div class="floating-flowers" style="bottom: 30%; right: 10%; animation-delay: 2s;">🌹</div>
+        <div class="floating-flowers" style="top: 40%; left: 10%; animation-delay: 2.5s;">🌷</div>
+        <div class="floating-flowers" style="bottom: 10%; right: 40%; animation-delay: 3s;">🌺</div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+        <!-- Ganti URL ini dengan file musik Valentine favorit Anda. Jika file lokal, gunakan path relatif seperti 'music/valentine.mp3' -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Create falling hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Create falling confetti for page 2
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 4000);
+        }
+
+        // Open message and switch to page 2
+        function openMessage() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'flex';
+            startTyping();
+            // Start confetti when page 2 opens
+            setInterval(createConfetti, 200);
+        }
+
+        // Typing effect for the message
+        function startTyping() {
+            const message = "Happy Valentine's Day, my love! You are the sweetest thing in my life. 💕";
+            const typingDiv = document.getElementById('typingMessage');
+            let i = 0;
+            const speed = 100; // milliseconds per character
+
+            function typeWriter() {
+                if (i < message.length) {
+                    typingDiv.innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                } else {
+                    // After typing, show chocolate and start photo slideshow
+                    document.getElementById('chocolate').style.opacity = '1';
+                    startPhotoSlideshow();
+                }
+            }
+            typeWriter();
+        }
+
+        // Photo slideshow
+        function startPhotoSlideshow() {
+            const photos = [
+                "https://loremflickr.com/200/200/cat",
+                "https://loremflickr.com/200/200/dog",
+                "https://loremflickr.com/200/200/bear",
+                "https://loremflickr.com/200/200/rabbit"
+            ];
+            const photoElement = document.getElementById('photo');
+            let index = 0;
+
+            function changePhoto() {
+                photoElement.src = photos[index];
+                index = (index + 1) % photos.length;
+            }
+
+            // Start slideshow after chocolate appears
+            setTimeout(() => {
+                changePhoto();
+                setInterval(changePhoto, 2000); // Change every 2 seconds
+            }, 1000); // Initial delay
+        }
+
+        // Music toggle
+        const bgMusic = document.getElementById('bgMusic');
+        const musicButton = document.getElementById('musicButton');
+        let isPlaying = false;
+
+        musicButton.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicButton.textContent = '🔇'; // Muted icon
+            } else {
+                bgMusic.play().catch(e => console.log('Autoplay blocked'));
+                musicButton.textContent = '🎵'; // Music icon
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+</html>
